@@ -4,6 +4,8 @@
 boolean sensorValue;
 boolean buttonValue;
 
+char cod;
+
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
@@ -12,17 +14,21 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  //sensorValue = digitalRead(sensorIR);
-
-  //if(!sensorValue){
-    //Serial.println("TEMPERATURA: 38");
-    //delay(3000);
-  //}
+  sensorValue = digitalRead(sensorIR);
   buttonValue = digitalRead(button);
 
-  if(buttonValue){
-    Serial.println("HIGIENIZAÇÃO FEITA");
-    delay(2000);
+  while(Serial.available()){
+    cod = Serial.read();
+
+    switch(cod){
+      case '1':
+        Serial.write(!sensorValue);
+        break;
+      case '2':
+        Serial.write('a');
+        break;
+    }
+
+    
   }
 }
