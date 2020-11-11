@@ -7,13 +7,37 @@ package testecomunicacaoserial;
 
 public class PocComunicacaoSerial {
 
-    public static void main(String[] args) {
-        
+    public static void main(String[] args) throws InterruptedException {
+        String response;
         ComunicacaoSerial serial = new ComunicacaoSerial("COM8");
         
         while(true){
-            System.out.println(serial.readData());
-        }    
+           response = serial.readData();
+            System.out.println(response);
+         
+            if("Sensor acionado".equals(response)){
+                System.out.println("ACIONADO");
+                break;
+            }
+            
+         }
+        
+         while(true){
+           response = serial.readData();
+            System.out.println(response);
+         
+            if("Botao pressionado".equals(response)){
+                System.out.println("PRESSIONADO");
+                break;
+            }
+            
+         }
+        
+        
+       }
+            
+            
+  }    
+        
        
-    }
-}
+   
