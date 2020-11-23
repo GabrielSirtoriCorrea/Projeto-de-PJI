@@ -1,5 +1,6 @@
 #define sensorIR 7
 #define button 8
+#define buzzer 3
 
 boolean sensorValue = false;
 boolean buttonValue = false;
@@ -11,6 +12,7 @@ void setup() {
   Serial.begin(9600);
   pinMode(sensorIR, INPUT);
   pinMode(button, INPUT);
+  pinMode(buzzer, OUTPUT);
 }
 
 void loop() {
@@ -20,8 +22,17 @@ void loop() {
   if(buttonValue){
     Serial.println("Botao pressionado");
   }
+  
   if(!sensorValue){
     Serial.println("Sensor acionado");
+    tone(buzzer, 2800);
+    delay(100);
+    noTone(buzzer);
+    delay(100);
+    tone(buzzer, 2800);
+    delay(100);
+    noTone(buzzer);
+    delay(500);
   }
 
   /*while(Serial.available()){
@@ -37,4 +48,6 @@ void loop() {
 
     
   }*/
+
+  
 }
