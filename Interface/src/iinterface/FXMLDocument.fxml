@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="900.0" prefWidth="1440.0" styleClass="bodybg" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iinterface.FXMLDocumentController">
+   <children>
+      <ImageView fitHeight="354.0" fitWidth="349.0" layoutX="16.0" layoutY="522.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../styles/Doctor.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="1060.0" fitWidth="1111.0" layoutX="245.0" layoutY="-208.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../styles/Balão%20de%20fala.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="interactiveLabel" layoutX="338.0" layoutY="76.0" prefHeight="651.0" prefWidth="847.0" text="Olá! Antes de entrar, vamos fazer algumas verificações em decorrência do Covid-19. Por favor, passe a mão sobre o sensor a cima para fazer uma checagem de temperatura." textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="54.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
