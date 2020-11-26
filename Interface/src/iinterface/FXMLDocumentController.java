@@ -28,9 +28,10 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Label interactiveLabel;
     
-    private String serialResponse;
     private ComunicacaoSerial serial;
-    
+    private String serialResponse = null;
+    private String lastResponse=null;
+            
     private boolean temperatureCheck = true;
     private boolean sanitationCheck = false;
     private int temperature;
@@ -48,7 +49,7 @@ public class FXMLDocumentController implements Initializable {
         
         delay = new Timeline(new KeyFrame(Duration.seconds(5), (ActionEvent event) -> {
                     interactiveLabel.setText("Olá! Antes de entrar, vamos fazer algumas verificações em decorrência do Covid-19. "
-                    + "Por favor, passe a mão sobre o sensor a cima para fazer uma checagem de temperatura.");
+                    + "Por favor, aproxime sua cabeça do sensor acima, e passe a mão sobre o outro sensor para fazer uma checagem de temperatura.");
                
                 }));
         
@@ -68,27 +69,48 @@ public class FXMLDocumentController implements Initializable {
         
         serialResponse = serial.readData();
         System.out.println(serialResponse);
- 
+        System.out.println(lastResponse);
         
-        if("Sensor acionado".equals(serialResponse) && temperatureCheck){
-                System.out.println("ACIONADO"); // pegar temperatura
-                temperatureCheck= false;
-               sanitationCheck = true;
-               interactiveLabel.setText("Muito bem! Agora vamos fazer uma rápida higienização. Pressione com o pé o "
-                       + "pedal logo abaixo, e estenda sua mão para receber o álcool.");
-        }
-         
-        if("Botao pressionado".equals(serialResponse) && sanitationCheck){
-                System.out.println("PRESSIONADO");
-                 temperatureCheck= true;
-                 sanitationCheck = false;
-                 
-                 interactiveLabel.setText("Pronto! Agora você já pode entrar no local. Só não se esqueça de colocar a "
-                              + "MÁSCARA! Boas compras!");
-                
-                 delay.play();
-                
-         }
+        if( lastResponse != serialResponse){
+        
+            if(null != serialResponse && temperatureCheck && !"Botao pressionado".equals(serialResponse)){
+                    System.out.println("Sensor Acionado"); // pegar temperatura
+
+                    temperature = Integer.parseInt(serialResponse);
+
+                    System.out.println(temperature);
+
+
+                   if(temperature >= 38){
+                       interactiveLabel.setText("Cuidado!!! Sua temperatura é de " + temperature +" graus e está muito elevada, "
+                               + "por favor, retire-se do local e procure um médico! ");
+                        temperatureCheck= true;
+                        sanitationCheck = false;
+
+                        delay.play();
+
+                   }else{
+                    interactiveLabel.setText("Muito bem! Sua tempeatura é de " + temperature +" graus. Agora vamos fazer uma rápida higienização. Pressione com o pé o "
+                           + "pedal logo abaixo, e estenda sua mão para receber o álcool.");
+                    temperatureCheck= false;
+                    sanitationCheck = true;
+
+                   }
+
+                }    
+
+                if("Botao pressionado".equals(serialResponse) && sanitationCheck){
+                        System.out.println("PRESSIONADO");
+                         temperatureCheck= true;
+                         sanitationCheck = false;
+
+                         interactiveLabel.setText("Pronto! Agora você já pode entrar no local. Só não se esqueça de colocar a "
+                                      + "MÁSCARA! Boas compras!");
+                          delay.play();
+
+                }
+            }
+        lastResponse = serialResponse;
     }
 }
     

@@ -24,7 +24,9 @@ void loop() {
   }
   
   if(!sensorValue){
-    Serial.println("Sensor acionado");
+    delay(2000);
+    //LER TEMPERATURA
+    Serial.println(36);
     tone(buzzer, 2800);
     delay(100);
     noTone(buzzer);
