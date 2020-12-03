@@ -1,4 +1,4 @@
-package iinterface;
+package Interface;
 
 import gnu.io.CommPortIdentifier;
 import gnu.io.NoSuchPortException;
